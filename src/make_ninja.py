@@ -9,16 +9,16 @@ except:
   pass
  	
 
-if "QUACK_ROOT" not in os.environ:
+if "QUACK_HPC_ROOT" not in os.environ:
    os.chdir("..")
    print("")
-   print("Please set the QUACK_ROOT environment variable, for example:")
+   print("Please set the QUACK_HPC_ROOT environment variable, for example:")
    print("")
-   print("$ export QUACK_ROOT={0}".format(os.getcwd()))
+   print("$ export QUACK_HCP_ROOT={0}".format(os.getcwd()))
    print("")
    sys.exit(1)
 
-QUACK_ROOT=os.environ["QUACK_ROOT"]
+QUACK_HPC_ROOT=os.environ["QUACK_HPC_ROOT"]
 
 if not DEBUG:
     compile_gfortran_mac = """
@@ -103,15 +103,15 @@ header = """#
 #  {0}/src/make_ninja.py
 #
 
-QUACK_ROOT={0}
-IDIR=$QUACK_ROOT/include
-LDIR=$QUACK_ROOT/lib
-BDIR=$QUACK_ROOT/bin
-SDIR=$QUACK_ROOT/src
+QUACK_HPC_ROOT={0}
+IDIR=$QUACK_HPC_ROOT/include
+LDIR=$QUACK_HPC_ROOT/lib
+BDIR=$QUACK_HPC_ROOT/bin
+SDIR=$QUACK_HPC_ROOT/src
 
 LIBXC_VERSION=5.0.0
 
-""".format(QUACK_ROOT)
+""".format(QUACK_HPC_ROOT)
 
 rule_fortran = """
 rule fc
@@ -143,7 +143,7 @@ rule build_lib
 
 rule_git_clone = """
 rule git_clone
-  command = cd $QUACK_ROOT ; git clone $url
+  command = cd $QUACK_HPC_ROOT ; git clone $url
   pool = console
   description = Cloning $in
 
